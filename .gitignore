@@ -131,3 +131,5 @@ dist
 
 labels/*
 !labels/db-goes-here.txt
+
+.idea

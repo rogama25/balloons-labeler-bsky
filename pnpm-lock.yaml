@@ -8,9 +8,6 @@ importers:
 
   .:
     dependencies:
-      '@atcute/client':
-        specifier: ^2.0.4
-        version: 2.0.4
       '@atproto/api':
         specifier: ^0.13.15
         version: 0.13.15
