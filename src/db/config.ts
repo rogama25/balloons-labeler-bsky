@@ -1,5 +1,6 @@
 import {Sequelize} from "sequelize-typescript";
 import {User} from "../types/db.js";
+import "dotenv/config"
 
 export {};
 

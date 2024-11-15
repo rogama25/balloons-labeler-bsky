@@ -13,4 +13,7 @@ export class User extends Model {
     @Min(1) @Max(12)
     @Column(DataType.INTEGER)
     month!: number
+
+    @Column(DataType.DATE)
+    nextUpdate!: Date
 }
