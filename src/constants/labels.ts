@@ -189,3 +189,5 @@ export const labels: Label[] = [
         endDays: 7
     }
 ]
+
+export const sortedLabels = labels.sort((a, b) => a.startDays - b.startDays)

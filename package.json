@@ -6,7 +6,8 @@
   "scripts": {
     "start": "tsx src/index.ts",
     "setup-labels": "tsx src/setup-labels.ts",
-    "setup-db": "tsx src/setup-db.ts"
+    "setup-db": "tsx src/setup-db.ts",
+    "migrate": "tsx src/migrate-user-to-did.ts"
   },
   "keywords": [],
   "author": "rogama25",
@@ -16,8 +17,10 @@
     "@atproto/api": "^0.13.15",
     "@skyware/bot": "^0.3.7",
     "@skyware/labeler": "^0.1.13",
+    "@types/luxon": "^3.4.2",
     "@types/node-schedule": "^2.1.7",
     "dotenv": "^16.4.5",
+    "luxon": "^3.5.0",
     "node-schedule": "^2.1.1",
     "pg": "^8.13.1",
     "pg-hstore": "^2.3.4",

@@ -9,6 +9,7 @@ services:
       - DID=${DID}
       - SIGNING_KEY=${SIGNING_KEY}
       - DB=${DB}
+      - ADMIN_DID=${ADMIN_DID}
     volumes:
       - type: bind
         source: ./labels

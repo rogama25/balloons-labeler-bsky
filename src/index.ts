@@ -3,7 +3,9 @@ import 'dotenv/config'
 import {upsertUser} from "./utils/db.js";
 import {isValidDate} from "./utils/dates.js";
 import "./db/config.js"
-import {addTag, getTags, labelerServer, removeTag} from "./labeller/test.js";
+import {labelerServer} from "./labeler/labeler.js";
+import {recalculateAll, recalculateNeeded} from "./utils/recalculate.js";
+import {scheduleJob} from "node-schedule";
 
 const bot = new Bot({
     emitChatEvents: true,
@@ -18,8 +20,10 @@ await bot.login({
 
 bot.on("message", async (message: ChatMessage) => {
     try {
-        const handle = await message.getSender().then(v => v.handle);
+        const sender = await message.getSender();
         const conversationId = message.conversationId;
+        const handle = sender.handle
+        const did = sender.did
         console.log(`Received message: ${message.text} from ${handle}`);
         // test the message against regex day and month
         const match = message.text.match(/^(\d{1,2})\/(\d{1,2})$/);
@@ -28,7 +32,7 @@ bot.on("message", async (message: ChatMessage) => {
             const day = parseInt(match[1], 10);
             const month = parseInt(match[2], 10);
             if (isValidDate(day, month)) {
-                await upsertUser(handle, day, month)
+                await upsertUser(did, day, month)
                 await bot.sendMessage({
                     conversationId: conversationId!,
                     text: `¡He establecido tu cumpleaños para el día ${day}/${month}! (DD/MM)\n\nBirthday set for ${day}/${month}!\n\nNOTA: Todavía estoy trabajando en el proyecto y faltan cosas por hacer, gracias por tu comprensión!\n\nNOTE: I'm still working on the project and there are still things to do, thanks for your understanding!`
@@ -41,25 +45,11 @@ bot.on("message", async (message: ChatMessage) => {
             })
             return
         }
-        if (message.text === "BETATEST-add") {
-            addTag(message.senderDid)
+        if (message.text.toLowerCase().trim() === "/recalculate" && message.senderDid === process.env.ADMIN_DID) {
+            await recalculateAll();
             await bot.sendMessage({
                 conversationId: conversationId!,
-                text: "Labels added!"
-            })
-            return
-        } if (message.text === "BETATEST-reset") {
-            removeTag(message.senderDid)
-            await bot.sendMessage({
-                conversationId: conversationId!,
-                text: "Labels reset!"
-            })
-            return
-        } if (message.text === "BETATEST-get") {
-            const tags = getTags(message.senderDid)
-            await bot.sendMessage({
-                conversationId: conversationId!,
-                text: JSON.stringify(tags)
+                text: "Recalculados todos los usuarios\n\nRecalculated all users"
             })
             return
         }
@@ -71,6 +61,10 @@ bot.on("message", async (message: ChatMessage) => {
         console.error(e)
     }
 });
+
+scheduleJob("*/5 * * * *", async () => {
+    await recalculateNeeded()
+})
 
 labelerServer.app.listen({port: 4100, host: "::"}, (error, address) => {
     if (error) {

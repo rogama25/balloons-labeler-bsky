@@ -4,7 +4,7 @@ import {Column, DataType, Max, Min, Model, PrimaryKey, Table} from "sequelize-ty
 export class User extends Model {
     @PrimaryKey
     @Column(DataType.STRING)
-    handle!: string;
+    did!: string;
 
     @Min(1) @Max(31)
     @Column(DataType.INTEGER)

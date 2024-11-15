@@ -17,12 +17,18 @@ importers:
       '@skyware/labeler':
         specifier: ^0.1.13
         version: 0.1.13
+      '@types/luxon':
+        specifier: ^3.4.2
+        version: 3.4.2
       '@types/node-schedule':
         specifier: ^2.1.7
         version: 2.1.7
       dotenv:
         specifier: ^16.4.5
         version: 16.4.5
+      luxon:
+        specifier: ^3.5.0
+        version: 3.5.0
       node-schedule:
         specifier: ^2.1.1
         version: 2.1.1
@@ -314,6 +320,9 @@ packages:
 
   '@types/debug@4.1.12':
     resolution: {integrity: sha512-vIChWdVG3LG1SMxEvI/AK+FWJthlrqlTu7fbrlywTkkaONwk/UAGaULXRlf8vkzFBLVm0zkMdCquhL5aOjhXPQ==}
+
+  '@types/luxon@3.4.2':
+    resolution: {integrity: sha512-TifLZlFudklWlMBfhubvgqTXRzLDI5pCbGa4P8a3wPyUQSW+1xQ5eDsreP9DWHX3tjq1ke96uYG/nwundroWcA==}
 
   '@types/ms@0.7.34':
     resolution: {integrity: sha512-nG96G3Wp6acyAgJqGasjODb+acrI7KltPiRxzHPXnP3NgI28bpQDRv53olbqGXbfcgF5aiiHmO3xpwEpS5Ld9g==}
@@ -1077,6 +1086,8 @@ snapshots:
   '@types/debug@4.1.12':
     dependencies:
       '@types/ms': 0.7.34
+
+  '@types/luxon@3.4.2': {}
 
   '@types/ms@0.7.34': {}
 
