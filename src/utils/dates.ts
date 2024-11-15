@@ -24,23 +24,24 @@ export function daysToNearestBirthday(birthdayDay: number, birthdayMonth: number
     let daysSincePrevious: number;
 
     if (thisYearBirthday > today) {
-        daysUntilNext = thisYearBirthday.diff(today, "days").days
-        daysSincePrevious = previousYearBirthday.diff(today, "days").days
+        daysUntilNext = Math.abs(thisYearBirthday.diff(today, "days").days)
+        daysSincePrevious = Math.abs(previousYearBirthday.diff(today, "days").days)
     } else {
-        daysUntilNext = nextYearBirthday.diff(today, "days").days
-        daysSincePrevious = thisYearBirthday.diff(today, "days").days
+        daysUntilNext = Math.abs(nextYearBirthday.diff(today, "days").days)
+        daysSincePrevious = Math.abs(thisYearBirthday.diff(today, "days").days)
     }
-
     return daysUntilNext <= daysSincePrevious ? -daysUntilNext : daysSincePrevious
 }
 
 export function getCurrentGroup(daysUntilNearest: number): Label | undefined {
-    return sortedLabels.reverse().find(label => label.startDays <= daysUntilNearest);
+    const label = sortedLabels.slice().reverse().find(label => label.startDays <= daysUntilNearest);
+    if (!label || daysUntilNearest > label.endDays) return undefined
+    return label
 }
 
 export function getNextUpdateDate(label: Label | undefined, birthdayDay: number, birthdayMonth: number): DateTime {
     const today = DateTime.now().setZone("Europe/Madrid").startOf("day")
     const thisYearBirthday = DateTime.fromObject({year: today.year, month: birthdayMonth, day: birthdayDay}).setZone("Europe/Madrid").startOf("day")
-    const year = thisYearBirthday > today ? today.year + 1 : today.year
+    const year = thisYearBirthday < today ? today.year + 1 : today.year
     return DateTime.fromObject({year: year, month: birthdayMonth, day: birthdayDay}).setZone("Europe/Madrid").plus({days: label ? label.endDays : sortedLabels[0].startDays}).startOf("day")
 }
