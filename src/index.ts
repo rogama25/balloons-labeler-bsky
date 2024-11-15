@@ -69,7 +69,7 @@ bot.on("message", async (message: ChatMessage) => {
     }
 });
 
-labelerServer.start(4100, (error, address) => {
+labelerServer.app.listen({port: 4100, host: "::"}, (error, address) => {
     if (error) {
         console.error(error);
         return;
