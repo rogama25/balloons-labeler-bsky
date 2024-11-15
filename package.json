@@ -1,0 +1,28 @@
+{
+  "name": "balloons-labeler-bsky",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "tsx src/index.ts",
+    "setup-labels": "tsx src/setup-labels.ts",
+    "setup-db": "tsx src/setup-db.ts"
+  },
+  "keywords": [],
+  "author": "rogama25",
+  "type": "module",
+  "license": "GPL-3.0-or-later",
+  "dependencies": {
+    "@atproto/api": "^0.13.15",
+    "@skyware/bot": "^0.3.7",
+    "@skyware/labeler": "^0.1.13",
+    "@types/node-schedule": "^2.1.7",
+    "dotenv": "^16.4.5",
+    "node-schedule": "^2.1.1",
+    "pg": "^8.13.1",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.37.5",
+    "sequelize-typescript": "^2.1.6",
+    "tsx": "^4.19.2"
+  }
+}

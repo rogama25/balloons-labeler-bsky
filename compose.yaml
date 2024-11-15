@@ -1,0 +1,16 @@
+services:
+  labeler:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - USER=${USER}
+      - PASSWORD=${PASSWORD}
+      - DID=${DID}
+      - SIGNING_KEY=${SIGNING_KEY}
+      - DB=${DB}
+    volumes:
+      - type: bind
+        source: ./labels
+        target: /app/labels
+        is_directory: true
