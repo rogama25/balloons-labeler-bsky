@@ -2,7 +2,7 @@ services:
   labeler:
     build: .
     ports:
-      - "80:4100"
+      - "4100:4100"
     environment:
       - USER=${USER}
       - PASSWORD=${PASSWORD}
