@@ -10,7 +10,7 @@ import {scheduleJob} from "node-schedule";
 const bot = new Bot({
     emitChatEvents: true,
     eventEmitterOptions: {
-        pollingInterval: 1
+        pollingInterval: 5
     }
 });
 await bot.login({

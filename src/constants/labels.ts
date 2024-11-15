@@ -41,7 +41,7 @@ export const labels: Label[] = [
             {
                 "lang": "en",
                 "name": "6d🎂",
-                "description": "This user birthday is in 6 days"
+                "description": "This user's birthday is in 6 days"
             },
             {
                 "lang": "es",
@@ -58,7 +58,7 @@ export const labels: Label[] = [
             {
                 "lang": "en",
                 "name": "5d🎂",
-                "description": "This user birthday is in 5 days"
+                "description": "This user's birthday is in 5 days"
             },
             {
                 "lang": "es",
@@ -75,7 +75,7 @@ export const labels: Label[] = [
             {
                 "lang": "en",
                 "name": "4d🎂",
-                "description": "This user birthday is in 4 days"
+                "description": "This user's birthday is in 4 days"
             },
             {
                 "lang": "es",
@@ -92,7 +92,7 @@ export const labels: Label[] = [
             {
                 "lang": "en",
                 "name": "3d🎂",
-                "description": "This user birthday is in 3 days"
+                "description": "This user's birthday is in 3 days"
             },
             {
                 "lang": "es",
@@ -109,7 +109,7 @@ export const labels: Label[] = [
             {
                 "lang": "en",
                 "name": "2d🎂",
-                "description": "This user birthday is in 2 days"
+                "description": "This user's birthday is in 2 days"
             },
             {
                 "lang": "es",
@@ -126,7 +126,7 @@ export const labels: Label[] = [
             {
                 "lang": "en",
                 "name": "Tomorrow🎂",
-                "description": "This user birthday is tomorrow"
+                "description": "This user's birthday is tomorrow"
             },
             {
                 "lang": "es",
@@ -142,12 +142,12 @@ export const labels: Label[] = [
         "locales": [
             {
                 "lang": "en",
-                "name": "🎂🎂🎂",
-                "description": "This user birthday is today"
+                "name": "🎂🎂🎂🎈🎈",
+                "description": "This user's birthday is today"
             },
             {
                 "lang": "es",
-                "name": "🎂🎂🎂",
+                "name": "🎂🎂🎂🎈🎈",
                 "description": "El cumpleaños de este usuario es hoy"
             }
         ],
@@ -160,7 +160,7 @@ export const labels: Label[] = [
             {
                 "lang": "en",
                 "name": "Yesterday🎂",
-                "description": "This user birthday was yesterday"
+                "description": "This user's birthday was yesterday"
             },
             {
                 "lang": "es",
@@ -177,7 +177,7 @@ export const labels: Label[] = [
             {
                 "lang": "en",
                 "name": "Last week🎂",
-                "description": "This user birthday was last week"
+                "description": "This user's birthday was last week"
             },
             {
                 "lang": "es",
