@@ -6,7 +6,10 @@ import "./db/config.js"
 import {addTag, getTags, labelerServer, removeTag} from "./labeller/test.js";
 
 const bot = new Bot({
-    emitChatEvents: true
+    emitChatEvents: true,
+    eventEmitterOptions: {
+        pollingInterval: 1
+    }
 });
 await bot.login({
     identifier: process.env.USER || "",
@@ -28,13 +31,13 @@ bot.on("message", async (message: ChatMessage) => {
                 await upsertUser(handle, day, month)
                 await bot.sendMessage({
                     conversationId: conversationId!,
-                    text: `Birthday set to ${message.text}!`
+                    text: `¡He establecido tu cumpleaños para el día ${day}/${month}! (DD/MM)\n\nBirthday set for ${day}/${month}!\n\nNOTA: Todavía estoy trabajando en el proyecto y faltan cosas por hacer, gracias por tu comprensión!\n\nNOTE: I'm still working on the project and there are still things to do, thanks for your understanding!`
                 })
                 return
             }
             await bot.sendMessage({
                 conversationId: conversationId!,
-                text: "Invalid date! Send your birthday in the format DD/MM"
+                text: "¡Eso no es una fecha válida! (DD/MM)\n\nThat is not a valid date! (DD/MM)"
             })
             return
         }
@@ -62,7 +65,7 @@ bot.on("message", async (message: ChatMessage) => {
         }
         await bot.sendMessage({
             conversationId: conversationId!,
-            text: "This is not a birthday! Send your birthday in the format DD/MM"
+            text: "¡Eso no es un cumpleaños! Manda un mensaje que contenga únicamente la fecha en el formato DD/MM\n\nThat is not a birthday! Send a message that contains only the date in the format DD/MM"
         });
     } catch (e) {
         console.error(e)
