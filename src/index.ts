@@ -5,7 +5,8 @@ import {isValidDate} from "./utils/dates.js";
 import "./db/config.js"
 import {labelerServer} from "./labeler/labeler.js";
 import {recalculateAll, recalculateNeeded} from "./utils/recalculate.js";
-import {scheduleJob} from "node-schedule";
+import {scheduleJob} from "node-schedule"
+import dedent from "dedent";
 
 const bot = new Bot({
     emitChatEvents: true,
@@ -35,13 +36,23 @@ bot.on("message", async (message: ChatMessage) => {
                 await upsertUser(did, day, month)
                 await bot.sendMessage({
                     conversationId: conversationId!,
-                    text: `¡He establecido tu cumpleaños para el día ${day}/${month}! (DD/MM)\n\nBirthday set for ${day}/${month}!\n\nNOTA: Todavía estoy trabajando en el proyecto y faltan cosas por hacer, gracias por tu comprensión!\n\nNOTE: I'm still working on the project and there are still things to do, thanks for your understanding!`
+                    text: dedent`¡He establecido tu cumpleaños para el día ${day}/${month}! (DD/MM)
+                    
+                    Birthday set for ${day}/${month}!
+                    
+                    NOTA: Todavía estoy trabajando en el proyecto y faltan cosas por hacer, gracias por tu comprensión!
+                    Si te ha gustado el proyecto, puedes compartirlo con tus amigos :)
+                    
+                    NOTE: I'm still working on the project and there are still things to do, thanks for your understanding!
+                    If you like the project, you can share it with your friends!`
                 })
                 return
             }
             await bot.sendMessage({
                 conversationId: conversationId!,
-                text: "¡Eso no es una fecha válida! (DD/MM)\n\nThat is not a valid date! (DD/MM)"
+                text: dedent`¡Eso no es una fecha válida! (DD/MM)
+
+                That is not a valid date! (DD/MM)`
             })
             return
         }
@@ -49,13 +60,17 @@ bot.on("message", async (message: ChatMessage) => {
             await recalculateAll();
             await bot.sendMessage({
                 conversationId: conversationId!,
-                text: "Recalculados todos los usuarios\n\nRecalculated all users"
+                text: dedent`Recalculados todos los usuarios
+
+                Recalculated all users`
             })
             return
         }
         await bot.sendMessage({
             conversationId: conversationId!,
-            text: "¡Eso no es un cumpleaños! Manda un mensaje que contenga únicamente la fecha en el formato DD/MM\n\nThat is not a birthday! Send a message that contains only the date in the format DD/MM"
+            text: dedent`¡Eso no es un cumpleaños! Manda un mensaje que contenga únicamente la fecha en el formato DD/MM
+
+            That is not a birthday! Send a message that contains only the date in the format DD/MM`
         });
     } catch (e) {
         console.error(e)
