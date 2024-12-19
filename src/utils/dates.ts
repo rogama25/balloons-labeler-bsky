@@ -46,7 +46,7 @@ function getNextBirthday(birthdayDay: number, birthdayMonth: number): DateTime {
 export function daysToNearestBirthday(birthdayDay: number, birthdayMonth: number): number {
     const today = DateTime.now().setZone("Europe/Madrid").startOf("day")
     const nearestBirthday = getNearestBirthday(birthdayDay, birthdayMonth)
-    return nearestBirthday.diff(today, "days").days
+    return today.diff(nearestBirthday, "days").days
 }
 
 export function getCurrentGroup(daysUntilNearest: number): Label | undefined {
