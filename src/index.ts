@@ -63,9 +63,9 @@ bot.on("message", async (message: ChatMessage) => {
             await deleteTags(did)
             await bot.sendMessage({
                 conversationId: conversationId!,
-                text: dedent`¡He eliminado tu cumpleaños!
+                text: dedent`¡He eliminado tu cumpleaños! Sentimos que te vayas, para cualquier sugerencia contacta con @rogama25.es
                 
-                I've deleted your birthday!`
+                I've deleted your birthday! We're sorry to see you go, for any suggestions contact @rogama25.es`
             })
             return
         }
@@ -81,9 +81,11 @@ bot.on("message", async (message: ChatMessage) => {
         }
         await bot.sendMessage({
             conversationId: conversationId!,
-            text: dedent`¡Eso no es un cumpleaños! Manda un mensaje que contenga únicamente la fecha en el formato DD/MM
+            text: dedent`¡Eso no es un cumpleaños! Manda un mensaje que contenga únicamente la fecha en el formato DD/MM. O escribe "/delete" para eliminar tu cumpleaños.
+            (Si tienes alguna duda, contacta con @rogama25.es)
 
-            That is not a birthday! Send a message that contains only the date in the format DD/MM`
+            That is not a birthday! Send a message that contains only the date in the format DD/MM. Or type "/delete" to delete your birthday.
+            (If you have any questions, contact @rogama25.es)`
         });
     } catch (e) {
         console.error(e)
