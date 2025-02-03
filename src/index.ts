@@ -4,9 +4,10 @@ import {deleteUser, upsertUser} from "./utils/db.js";
 import {isValidDate} from "./utils/dates.js";
 import "./db/config.js"
 import {labelerServer} from "./labeler/labeler.js";
-import {deleteTags, recalculateAll, recalculateNeeded} from "./utils/recalculate.js";
+import {deleteTags, recalculateAll, recalculateNeeded, recalculateUser} from "./utils/recalculate.js";
 import {scheduleJob} from "node-schedule"
 import dedent from "dedent";
+import {User} from "./types/db.js";
 
 const bot = new Bot({
     emitChatEvents: true,
@@ -33,7 +34,10 @@ bot.on("message", async (message: ChatMessage) => {
             const day = parseInt(match[1], 10);
             const month = parseInt(match[2], 10);
             if (isValidDate(day, month)) {
-                await upsertUser(did, day, month)
+                const newUser = await upsertUser(did, day, month)
+                if (newUser instanceof User) {
+                    await recalculateUser(newUser)
+                }
                 await bot.sendMessage({
                     conversationId: conversationId!,
                     text: dedent`¡He establecido tu cumpleaños para el día ${day}/${month}! (DD/MM)
