@@ -1,10 +1,10 @@
 import {Bot, ChatMessage} from "@skyware/bot";
 import 'dotenv/config'
-import {upsertUser} from "./utils/db.js";
+import {deleteUser, upsertUser} from "./utils/db.js";
 import {isValidDate} from "./utils/dates.js";
 import "./db/config.js"
 import {labelerServer} from "./labeler/labeler.js";
-import {recalculateAll, recalculateNeeded} from "./utils/recalculate.js";
+import {deleteTags, recalculateAll, recalculateNeeded} from "./utils/recalculate.js";
 import {scheduleJob} from "node-schedule"
 import dedent from "dedent";
 
@@ -42,17 +42,30 @@ bot.on("message", async (message: ChatMessage) => {
                     
                     NOTA: Todavía estoy trabajando en el proyecto y faltan cosas por hacer, gracias por tu comprensión!
                     Si te ha gustado el proyecto, puedes compartirlo con tus amigos :)
+                    Si quieres eliminar tu cumpleaños, escribe "/delete", sin las comillas.
                     
                     NOTE: I'm still working on the project and there are still things to do, thanks for your understanding!
-                    If you like the project, you can share it with your friends!`
+                    If you like the project, you can share it with your friends!
+                    If you'd like to delete your birthday, type "/delete", without the quotation marks.`
                 })
                 return
             }
             await bot.sendMessage({
                 conversationId: conversationId!,
-                text: dedent`¡Eso no es una fecha válida! (DD/MM)
+                text: dedent`¡Eso no es una fecha válida! (DD/MM). Si quieres eliminar tu cumpleaños, escribe "/delete", sin las comillas.
 
-                That is not a valid date! (DD/MM)`
+                That is not a valid date! (DD/MM). If you'd like to delete your birthday, type "/delete", without the quotation marks.`
+            })
+            return
+        }
+        if (message.text.toLowerCase().trim() === "/delete") {
+            await deleteUser(did)
+            await deleteTags(did)
+            await bot.sendMessage({
+                conversationId: conversationId!,
+                text: dedent`¡He eliminado tu cumpleaños!
+                
+                I've deleted your birthday!`
             })
             return
         }

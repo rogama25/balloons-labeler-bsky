@@ -33,6 +33,11 @@ export async function recalculateUser(user: User) {
     await user.save()
 }
 
+export async function deleteTags(did: string) {
+    const currentLabels = getCurrentTags(did)
+    currentLabels.forEach(v => removeTag(did, v))
+}
+
 export async function recalculateNeeded() {
     const users = await User.findAll({
         where: {
