@@ -6,7 +6,10 @@ import {daysToNearestBirthday, getCurrentGroup, getNextUpdateDate} from "./dates
 
 export async function recalculateAll() {
     const allUsers = await User.findAll()
-    allUsers.forEach(recalculateUser)
+    for (const user of allUsers) {
+        await new Promise(resolve => setTimeout(resolve, 500))
+        await recalculateUser(user)
+    }
 }
 
 export async function recalculateUser(user: User) {
@@ -49,5 +52,8 @@ export async function recalculateNeeded() {
             }
         }
     })
-    users.forEach(recalculateUser)
+    for (const user of users) {
+        await new Promise(resolve => setTimeout(resolve, 500))
+        await recalculateUser(user)
+    }
 }
