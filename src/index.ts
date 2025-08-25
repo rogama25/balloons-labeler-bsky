@@ -4,7 +4,7 @@ import {deleteUser, upsertUser} from "./utils/db.js";
 import {isValidDate} from "./utils/dates.js";
 import "./db/config.js"
 import {labelerServer} from "./labeler/labeler.js";
-import {deleteTags, recalculateAll, recalculateNeeded, recalculateUser} from "./utils/recalculate.js";
+import {cleanAll, deleteTags, recalculateAll, recalculateNeeded, recalculateUser} from "./utils/recalculate.js";
 import {scheduleJob} from "node-schedule"
 import dedent from "dedent";
 
@@ -77,6 +77,16 @@ bot.on("message", async (message: ChatMessage) => {
                 text: dedent`Recalculados todos los usuarios
 
                 Recalculated all users`
+            })
+            return
+        }
+        if (message.text.toLowerCase().trim() === "/cleanall" && message.senderDid === process.env.ADMIN_DID) {
+            await cleanAll();
+            await bot.sendMessage({
+                conversationId: conversationId!,
+                text: dedent`Eliminadas todas las etiquetas de todos los usuarios
+
+                Removed all tags from all users`
             })
             return
         }

@@ -3,13 +3,24 @@ import {Op} from "sequelize";
 import {DateTime} from "luxon";
 import {addTag, getCurrentTags, removeTag} from "../labeler/labeler.js";
 import {daysToNearestBirthday, getCurrentGroup, getNextUpdateDate} from "./dates.js";
+import {sortedLabels} from "../constants/labels.js";
 
 export async function recalculateAll() {
     const allUsers = await User.findAll()
     for (const user of allUsers) {
-        await new Promise(resolve => setTimeout(resolve, 500))
+        await new Promise(resolve => setTimeout(resolve, 100))
         await recalculateUser(user)
     }
+}
+
+export async function cleanAll() {
+    const allUsers = await User.findAll()
+    for (const user of allUsers) {
+        await new Promise(resolve => setTimeout(resolve, 100))
+    }
+}
+export async function cleanUser(user: User) {
+    sortedLabels.forEach(l => removeTag(user.did, l.id))
 }
 
 export async function recalculateUser(user: User) {
@@ -53,7 +64,7 @@ export async function recalculateNeeded() {
         }
     })
     for (const user of users) {
-        await new Promise(resolve => setTimeout(resolve, 500))
+        await new Promise(resolve => setTimeout(resolve, 100))
         await recalculateUser(user)
     }
 }
