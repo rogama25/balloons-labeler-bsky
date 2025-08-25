@@ -17,6 +17,7 @@ export async function cleanAll() {
     const allUsers = await User.findAll()
     for (const user of allUsers) {
         await new Promise(resolve => setTimeout(resolve, 100))
+        await cleanUser(user)
     }
 }
 export async function cleanUser(user: User) {
